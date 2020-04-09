@@ -43,22 +43,38 @@ export default class sortingVisualizer extends Component {
         const {array} = this.state
 
         return (
-            <div className="array-container">
-                {array.map((value, idx) => (
-                    <div className="array-bar"
-                        key={idx}
-                        style={{
-                        backgroundColor: primary,
-                        height: `${value}px`,}}>
-                    </div>
-                ))}
-
-            <button onClick={() => this.resetArrayValues()}>Generate New Array</button>
-            <button onClick={() => this.selectionSort()}>Selection Sort</button>
-            <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
-            <button onClick={() => this.mergeSort()}>Merge Sort</button>
-            <button onClick={() => this.quickSort()}>Quick Sort</button>
-            <button onClick={() => this.testSortingAlgorithms()}>Test Sorting Algorithms (BROKEN)</button>
+            <div>
+                <div class = "nav-bar">
+                    <span>
+                        <button onClick={() => this.resetArrayValues()}>Generate New Array</button>
+                    </span>
+                    <span class = "vertical-line" />
+                    <span>
+                        <button onClick={() => this.selectionSort()}>Change Array Size and Sorting Speed</button>
+                        <input class = "slider" type = "range" min = "4" max = "100" id = "my-range"></input>
+                    </span>
+                    <span class = "vertical-line" />
+                    <span>
+                        <button onClick={() => this.selectionSort()}>Selection Sort</button>
+                        <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                        <button onClick={() => this.mergeSort()}>Merge Sort</button>
+                        <button onClick={() => this.quickSort()}>Quick Sort</button>
+                    </span>
+                    <span class = "vertical-line" />
+                    {/*
+                    <button onClick={() => this.testSortingAlgorithms()}>Sort (BROKEN)</button>
+                    */}
+                </div>
+                <div className = "array-container">
+                    {array.map((value, idx) => (
+                        <div className = "array-bar"
+                            key = {idx}
+                            style = {{
+                            backgroundColor: primary,
+                            height: `${value}px`,}}>
+                        </div>
+                    ))}
+                </div>
             </div>
         )
     }
