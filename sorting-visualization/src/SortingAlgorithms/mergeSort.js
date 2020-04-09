@@ -1,5 +1,5 @@
 export function mergeSort(array) {
-    return sort(array, 0, array.len)
+    return sort(array, 0, array.len - 1)
 }
 
 function sort(array, start, end) {
