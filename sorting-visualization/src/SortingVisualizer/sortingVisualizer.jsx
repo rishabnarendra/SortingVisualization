@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
 import './sortingVisualizer.css';
 
-const array_size = 200;
+let array_size = 200;
 const primary = 'turquoise'
 
 export default class sortingVisualizer extends Component {
@@ -23,6 +23,11 @@ export default class sortingVisualizer extends Component {
         this.setState({array})
     } 
 
+    UpdateArraySize(newvalue) { 
+        array_size = newvalue
+        this.resetArrayValues()
+    }
+
     selectionSort() {
 
     }
@@ -39,6 +44,19 @@ export default class sortingVisualizer extends Component {
 
     }
 
+    calculateWidth() {
+        if(array_size < 40)
+            return 25
+        if(array_size < 80)
+            return 15
+        if(array_size < 120)
+            return 10
+        if(array_size < 160)
+            return 7
+        if(array_size <= 200)
+            return 5
+    }
+
     render() {
         const {array} = this.state
 
@@ -50,8 +68,8 @@ export default class sortingVisualizer extends Component {
                     </span>
                     <span class = "vertical-line" />
                     <span>
-                        <button onClick={() => this.selectionSort()}>Change Array Size and Sorting Speed</button>
-                        <input class = "slider" type = "range" min = "4" max = "100" id = "my-range"></input>
+                        <button onClick={() => this.selectionSort()}>Change Array Size and Sorting Speed</button>    
+                        <input class = "slider" type = "range" id = "test" min = "4" max = "200" step = "1" onInput={() => this.UpdateArraySize(test.value) }/> 
                     </span>
                     <span class = "vertical-line" />
                     <span>
@@ -71,6 +89,7 @@ export default class sortingVisualizer extends Component {
                             key = {idx}
                             style = {{
                             backgroundColor: primary,
+                            width: this.calculateWidth(),
                             height: `${value}px`,}}>
                         </div>
                     ))}
