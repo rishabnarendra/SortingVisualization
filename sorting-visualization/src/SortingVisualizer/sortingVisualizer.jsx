@@ -1,8 +1,11 @@
 import React, { Component } from 'react'; 
 import './sortingVisualizer.css';
+import {getMergeSortAnimations} from '../SortingAlgorithms/mergeSort.js';
 
 let array_size = 200;
 const primary = 'turquoise'
+const secondary = 'red'
+const animationSpeed = 1
 
 export default class sortingVisualizer extends Component {
     constructor(props) {
@@ -37,7 +40,27 @@ export default class sortingVisualizer extends Component {
     }
 
     mergeSort() {
-
+        const animations = getMergeSortAnimations(this.state.array);
+        for (let i = 0; i < animations.length; i++) {
+          const arrayBars = document.getElementsByClassName('array-bar');
+          const isColorChange = i % 3 !== 2;
+          if (isColorChange) {
+            const [barOneIdx, barTwoIdx] = animations[i];
+            const barOne = arrayBars[barOneIdx];
+            const barTwo = arrayBars[barTwoIdx];
+            const color = i % 3 === 0 ? secondary: primary;
+            setTimeout(() => {
+              barOne.style.backgroundColor = color;
+              barTwo.style.backgroundColor = color;
+            }, i * animationSpeed);
+          } else {
+            setTimeout(() => {
+              const [barOneIdx, newHeight] = animations[i];
+              const barOne = arrayBars[barOneIdx];
+              barOne.style.height = `${newHeight}px`;
+            }, i * animationSpeed);
+          }
+        }
     }
 
     quickSort() {
@@ -79,9 +102,6 @@ export default class sortingVisualizer extends Component {
                         <button onClick={() => this.quickSort()}>Quick Sort</button>
                     </span>
                     <span class = "vertical-line" />
-                    {/*
-                    <button onClick={() => this.testSortingAlgorithms()}>Sort (BROKEN)</button>
-                    */}
                 </div>
                 <div className = "array-container">
                     {array.map((value, idx) => (
