@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
 import './sortingVisualizer.css';
+import {getSelectionSortAnimations} from '../SortingAlgorithms/selectionSort'; 
 import {getMergeSortAnimations} from '../SortingAlgorithms/mergeSort.js';
 
 let array_size = 200;
@@ -32,7 +33,30 @@ export default class sortingVisualizer extends Component {
     }
 
     selectionSort() {
-
+        const animations = getSelectionSortAnimations(this.state.array)
+        for (let i = 0; i < animations.length; i++) {
+          const arrayBars = document.getElementsByClassName('array-bar')
+          const [barOneIdx, barTwoIdx, swapIdx] = animations[i]
+          if (swapIdx < 2) {
+            const barTwo = arrayBars[barTwoIdx]
+            const color = swapIdx % 2 === 0 ? secondary: primary
+            setTimeout(() => {
+                barTwo.style.backgroundColor = color
+            }, 20 * i * animationSpeed)
+          } else {
+            setTimeout(() => {
+                if(swapIdx === 2) {
+                    const [barOneIdx, height1] = animations[i]
+                    const barOne = arrayBars[barOneIdx]
+                    barOne.style.height = `${height1}px`
+                } else {
+                    const [height2, barTwoIdx] = animations[i]
+                    const barTwo = arrayBars[barTwoIdx]
+                    barTwo.style.height = `${height2}px`
+                }
+            }, 20 * i * animationSpeed)
+          }
+        }
     }
 
     bubbleSort() {
@@ -40,25 +64,25 @@ export default class sortingVisualizer extends Component {
     }
 
     mergeSort() {
-        const animations = getMergeSortAnimations(this.state.array);
+        const animations = getMergeSortAnimations(this.state.array)
         for (let i = 0; i < animations.length; i++) {
-          const arrayBars = document.getElementsByClassName('array-bar');
-          const isColorChange = i % 3 !== 2;
+          const arrayBars = document.getElementsByClassName('array-bar')
+          const isColorChange = i % 3 !== 2
           if (isColorChange) {
-            const [barOneIdx, barTwoIdx] = animations[i];
-            const barOne = arrayBars[barOneIdx];
-            const barTwo = arrayBars[barTwoIdx];
-            const color = i % 3 === 0 ? secondary: primary;
+            const [barOneIdx, barTwoIdx] = animations[i]
+            const barOne = arrayBars[barOneIdx]
+            const barTwo = arrayBars[barTwoIdx]
+            const color = i % 3 === 0 ? secondary: primary
             setTimeout(() => {
-              barOne.style.backgroundColor = color;
-              barTwo.style.backgroundColor = color;
-            }, i * animationSpeed);
+              barOne.style.backgroundColor = color
+              barTwo.style.backgroundColor = color
+            }, 20 * i * animationSpeed)
           } else {
             setTimeout(() => {
-              const [barOneIdx, newHeight] = animations[i];
-              const barOne = arrayBars[barOneIdx];
-              barOne.style.height = `${newHeight}px`;
-            }, i * animationSpeed);
+              const [barOneIdx, newHeight] = animations[i]
+              const barOne = arrayBars[barOneIdx]
+              barOne.style.height = `${newHeight}px`
+            }, 20 * i * animationSpeed)
           }
         }
     }
@@ -91,8 +115,8 @@ export default class sortingVisualizer extends Component {
                     </span>
                     <span class = "vertical-line" />
                     <span>
-                        <button onClick={() => this.selectionSort()}>Change Array Size and Sorting Speed</button>    
-                        <input class = "slider" type = "range" id = "test" min = "4" max = "200" step = "1" onInput={() => this.UpdateArraySize(test.value) }/> 
+                        <button>Change Array Size and Sorting Speed</button>    
+                        <input class = "slider" type = "range" id = "test" min = "4" max = "200" step = "1" onInput={() => this.UpdateArraySize(test.value)} value = {array_size} /> 
                     </span>
                     <span class = "vertical-line" />
                     <span>
@@ -111,6 +135,7 @@ export default class sortingVisualizer extends Component {
                             backgroundColor: primary,
                             width: this.calculateWidth(),
                             height: `${value}px`,}}>
+                            {/*{value}*/} 
                         </div>
                     ))}
                 </div>
