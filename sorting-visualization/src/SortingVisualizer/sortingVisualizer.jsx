@@ -1,7 +1,8 @@
 import React, { Component } from 'react'; 
 import './sortingVisualizer.css';
 import {getSelectionSortAnimations} from '../SortingAlgorithms/selectionSort'; 
-import {getMergeSortAnimations} from '../SortingAlgorithms/mergeSort.js';
+import {getBubbleSortAnimations} from '../SortingAlgorithms/bubbleSort'; 
+import {getMergeSortAnimations} from '../SortingAlgorithms/mergeSort';
 
 let array_size = 200;
 const primary = 'turquoise'
@@ -60,7 +61,38 @@ export default class sortingVisualizer extends Component {
     }
 
     bubbleSort() {
-
+        const animations = getBubbleSortAnimations(this.state.array)
+        for (let i = 0; i < animations.length; i++) {
+            const arrayBars = document.getElementsByClassName('array-bar')
+            const [barOneIdx, barTwoIdx, swapIdx] = animations[i]
+            if(swapIdx === 0) {
+                const barOne = arrayBars[barOneIdx]
+                const barTwo = arrayBars[barTwoIdx]
+                setTimeout(() => {
+                    barOne.style.backgroundColor = secondary
+                    barTwo.style.backgroundColor = secondary
+                  }, 20 * i * animationSpeed)
+            } else if(swapIdx === 2 || swapIdx === 3) {
+                setTimeout(() => {
+                    if(swapIdx === 2) {
+                        const [barOneIdx, height1] = animations[i]
+                        const barOne = arrayBars[barOneIdx]
+                        barOne.style.height = `${height1}px`
+                    } else {
+                        const [height2, barTwoIdx] = animations[i]
+                        const barTwo = arrayBars[barTwoIdx]
+                        barTwo.style.height = `${height2}px`
+                    }
+                }, 20 * i * animationSpeed)
+            } else {
+                const barOne = arrayBars[barOneIdx]
+                const barTwo = arrayBars[barTwoIdx]
+                setTimeout(() => {
+                    barOne.style.backgroundColor = primary
+                    barTwo.style.backgroundColor = primary
+                }, 20 * i * animationSpeed)
+            }
+        }
     }
 
     mergeSort() {
