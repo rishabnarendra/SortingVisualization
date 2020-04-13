@@ -51,11 +51,13 @@ button {
     opacity: 1;
 }
 
-.array-container {
-    position: center;
-}
-
 .array-bar {
     display: inline-block;
     margin: 0 1px;
+}
+
+.value {
+    color: #000000;
+    font-size: 0px;
+    font-family: Consolas;
 }

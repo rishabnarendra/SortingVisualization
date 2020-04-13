@@ -155,24 +155,23 @@ export default class sortingVisualizer extends Component {
                         <button onClick={() => this.selectionSort()}>Selection Sort</button>
                         <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
                         <button onClick={() => this.mergeSort()}>Merge Sort</button>
-                        <button onClick={() => this.quickSort()}>Quick Sort</button>
+                        {/*<button onClick={() => this.quickSort()}>Quick Sort</button>*/}
                     </span>
                     <span class = "vertical-line" />
                 </div>
-                <div className = "array-container">
                     {array.map((value, idx) => (
                         <div className = "array-bar"
                             key = {idx}
                             style = {{
+                            value: array[idx],
                             backgroundColor: primary,
                             width: this.calculateWidth(),
                             height: `${value}px`,}}>
-                            {/*{value}*/} 
+                            <div class = "value">{0}</div>
                         </div>
                     ))}
-                </div>
             </div>
-        )
+        );
     }
 }
         // https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
