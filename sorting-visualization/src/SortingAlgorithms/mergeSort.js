@@ -19,7 +19,6 @@ function merge(array, start, middle, end, auxiliaryArray, animations) {
     let pointer1 = start, pointer2 = middle + 1
     let pointer3 = start 
     while(pointer1 <= middle && pointer2 <= end) {
-
         animations.push([pointer1, pointer2]);
         animations.push([pointer1, pointer2]);
 
