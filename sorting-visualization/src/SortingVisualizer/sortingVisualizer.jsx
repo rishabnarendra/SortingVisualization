@@ -124,16 +124,24 @@ export default class sortingVisualizer extends Component {
     }
 
     calculateWidth() {
-        if(array_size < 40)
-            return 25
-        if(array_size < 80)
-            return 15
+        if(array_size < 30)
+            return 3
+        if(array_size < 45)
+            return 2
+        if(array_size < 70)
+            return 1
+        if(array_size < 100)
+            return 0.8
         if(array_size < 120)
-            return 10
+            return 0.7
+        if(array_size < 140)
+            return 0.6
         if(array_size < 160)
-            return 7
+            return 0.5
+        if(array_size < 180)
+            return 0.4
         if(array_size <= 200)
-            return 5
+            return 0.3
     }
 
     render() {
@@ -148,7 +156,7 @@ export default class sortingVisualizer extends Component {
                     <span class = "vertical-line" />
                     <span>
                         <button>Change Array Size and Sorting Speed</button>    
-                        <input class = "slider" type = "range" id = "test" min = "4" max = "200" step = "1" onInput={() => this.UpdateArraySize(test.value)} value = {array_size} /> 
+                        <input class = "slider" type = "range" id = "test" min = "10" max = "200" step = "1" onInput={() => this.UpdateArraySize(test.value)} value = {array_size} /> 
                     </span>
                     <span class = "vertical-line" />
                     <span>
@@ -165,7 +173,7 @@ export default class sortingVisualizer extends Component {
                             style = {{
                             value: array[idx],
                             backgroundColor: primary,
-                            width: this.calculateWidth(),
+                            width: `${this.calculateWidth()}vw`,
                             height: `${value}px`,}}>
                             <div class = "value">{0}</div>
                         </div>
